@@ -17,4 +17,7 @@ class Article extends Model
     public function like(){
         return $this->hasMany('App\Models\Like','article_id');
     }
+    public function comment(){
+        return $this->hasMany('App\Models\Comment','article_id');
+    }
 }

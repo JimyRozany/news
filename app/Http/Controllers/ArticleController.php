@@ -9,18 +9,28 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Article;
 use App\Models\User;
+use App\Models\Comment;
 
 
 class ArticleController extends Controller
 {
 
     // View the page that contains all articles
-    public function index(){ // show all articles
+    public function index(Article $article){ // show all articles
        $article = new Article;
        $users = new User;
        $all_articles = $article->all();
-
-       return view('main' ,['articles' => $all_articles ,'users' => $users]);
+       $comments =new Comment();
+       $all_comments = $comments->all();
+        // $all_comments =Comment::where('article_id','=',2)->get();
+        // dd($all_comments->comment_body);
+       return view('main' ,[
+           'articles' => $all_articles ,
+           'users' => $users,
+           
+           'comments' =>$all_comments,
+        //    'comments' => Comment::where('article_id','=',$article->id)->get(),
+         ]);
     }
     // get view form add article 
     public function articleForm(){
